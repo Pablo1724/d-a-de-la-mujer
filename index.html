@@ -15,6 +15,7 @@
            - HTML (HyperText Markup Language / Lenguaje de Marcado de Hipertexto): La estructura de los contenidos.
            - SVG (Scalable Vector Graphics / Gráficos Vectoriales Redimensionables): Iconos que mantienen su calidad en cualquier tamaño.
            - URL (Uniform Resource Locator / Localizador de Recursos Uniforme): La dirección del video en YouTube.
+           - Media Queries: Herramienta de CSS que permite aplicar estilos específicos según el tamaño del dispositivo (Celular, Tablet, PC).
         */
 
         :root {
@@ -31,7 +32,6 @@
         }
 
         body {
-            /* Fondo con degradado muy lento y suave */
             background: linear-gradient(-45deg, #fdf2f8, #fce7f3, #f9a8d4, #fdf2f8);
             background-size: 400% 400%;
             animation: gradientSlow 25s ease-in-out infinite;
@@ -39,12 +39,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* SE HA MODIFICADO: overflow-x: hidden evita barras laterales, 
-               pero permite el desplazamiento vertical (UX mejorado) */
             overflow-x: hidden;
             overflow-y: auto;
             font-family: 'Quicksand', sans-serif;
-            padding: 20px 0; /* Espacio para que no toque los bordes al hacer scroll */
+            padding: 20px 10px; /* Padding reducido para móviles */
         }
 
         @keyframes gradientSlow {
@@ -54,7 +52,7 @@
         }
 
         #particles {
-            position: fixed; /* Cambiado a fixed para que los corazones sigan en pantalla al bajar */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -66,36 +64,38 @@
         .main-container {
             position: relative;
             z-index: 10;
-            width: 90%;
+            width: 100%; /* Ocupa todo el ancho disponible */
             max-width: 500px;
-            margin: auto; /* Asegura el centrado correcto en el scroll vertical */
+            margin: auto;
         }
 
         /* Tarjeta Estática y Elegante */
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
-            border-radius: 40px;
-            padding: 60px 40px;
+            border-radius: 30px; /* Radio ligeramente menor para móviles */
+            padding: 40px 20px; /* Padding adaptado */
             text-align: center;
             box-shadow: 0 20px 40px rgba(190, 24, 93, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.8);
             position: relative;
+            width: 100%;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             color: var(--pink-deep);
-            font-size: 3.2rem;
+            font-size: 2.5rem; /* Tamaño base más pequeño para móviles */
             margin-bottom: 10px;
+            line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--pink-vibrant);
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 45px;
+            margin-bottom: 30px;
             font-weight: 600;
         }
 
@@ -104,27 +104,21 @@
             background: linear-gradient(135deg, var(--pink-vibrant), var(--pink-deep));
             color: white;
             border: none;
-            padding: 16px 40px;
+            padding: 14px 30px;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.4s ease;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: 0 8px 15px rgba(236, 72, 153, 0.15);
-        }
-
-        .btn-open:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(190, 24, 93, 0.2);
-            filter: brightness(1.05);
         }
 
         #reveal-section {
             display: none;
-            margin-top: 35px;
+            margin-top: 30px;
             animation: fadeInSimple 1.2s ease forwards;
         }
 
@@ -135,15 +129,15 @@
 
         .letter-text {
             background: rgba(255, 255, 255, 0.6);
-            padding: 30px;
-            border-radius: 25px;
+            padding: 20px;
+            border-radius: 20px;
             color: #555;
-            line-height: 1.8;
-            font-size: 1.05rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
             font-style: italic;
             text-align: justify;
             border-left: 3px solid var(--pink-vibrant);
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         .letter-text b {
@@ -159,41 +153,27 @@
 
         .yt-code-container {
             background: linear-gradient(90deg, var(--pink-vibrant), var(--pink-deep));
-            height: 55px;
-            border-radius: 15px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            gap: 12px;
+            padding: 0 15px;
+            gap: 10px;
             position: relative;
             animation: pulseElegant 2.5s infinite ease-in-out;
             transition: transform 0.3s ease;
         }
 
         @keyframes pulseElegant {
-            0% { 
-                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
-                filter: brightness(1);
-            }
-            50% { 
-                box-shadow: 0 0 20px 10px rgba(236, 72, 153, 0);
-                filter: brightness(1.15);
-            }
-            100% { 
-                box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
-                filter: brightness(1);
-            }
-        }
-
-        .yt-code-container:hover {
-            transform: scale(1.02);
-            animation-play-state: paused;
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); filter: brightness(1); }
+            50% { box-shadow: 0 0 15px 8px rgba(236, 72, 153, 0); filter: brightness(1.1); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); filter: brightness(1); }
         }
 
         .yt-logo-circle {
             background: white;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -202,26 +182,27 @@
         }
 
         .yt-logo-circle svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             color: var(--pink-vibrant);
         }
 
         .sound-bars {
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
             flex-grow: 1;
-            height: 25px;
+            height: 20px;
         }
 
         .bar {
             flex: 1;
             background-color: white;
             border-radius: 10px;
-            min-height: 3px;
+            min-height: 2px;
         }
 
+        /* Alturas de las barras */
         .bar-1 { height: 25%; } .bar-2 { height: 55%; } .bar-3 { height: 85%; }
         .bar-4 { height: 45%; } .bar-5 { height: 75%; } .bar-6 { height: 95%; }
         .bar-7 { height: 60%; } .bar-8 { height: 100%; } .bar-9 { height: 40%; }
@@ -231,10 +212,10 @@
 
         .yt-label {
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .heart-float {
@@ -252,12 +233,21 @@
         }
 
         footer {
-            margin-top: 40px;
+            margin-top: 30px;
             color: var(--pink-deep);
             font-weight: 500;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
             opacity: 0.5;
+        }
+
+        /* --- MEDIA QUERIES PARA CELULARES Y TABLETS --- */
+        @media (min-width: 480px) {
+            h1 { font-size: 3.2rem; }
+            .card { padding: 60px 40px; }
+            .subtitle { font-size: 0.8rem; }
+            .yt-code-container { height: 55px; }
+            .yt-label { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -282,7 +272,6 @@
                     Te dedico esta canción tan especial para que la escuches hoy y sientas lo mucho que te amo:"
                 </div>
 
-                <!-- Botón YouTube con Parpadeo Elegante -->
                 <a href="https://www.youtube.com/watch?v=fuWMmURFYts&list=RDfuWMmURFYts&start_radio=1" target="_blank" class="yt-code-link">
                     <div class="yt-code-container">
                         <div class="yt-logo-circle">
